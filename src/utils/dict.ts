@@ -239,5 +239,12 @@ export enum DICT_TYPE {
   IOT_PRODUCT_FUNCTION_TYPE = 'iot_product_function_type', // IOT 产品功能类型
   IOT_DATA_TYPE = 'iot_data_type', // IOT 数据类型
   IOT_UNIT_TYPE = 'iot_unit_type', // IOT 单位类型
-  IOT_RW_TYPE = 'iot_rw_type' // IOT 读写类型
+  IOT_RW_TYPE = 'iot_rw_type', // IOT 读写类型
+
+
+  // ========== GIFT - GIFT模块  ==========
+  CARD_SALES_STATUS = 'card_sales_status', // GIFT 卡券销售状态
+  APPOINTMENT_STATUS = 'appointment_status', // GIFT 卡券预约状态
+  CARD_STATUS = 'card_status', //GIFT 卡券状态
+  XY_OLD_CARD_BELONG_SYS = 'xy_old_card_belong_sys', //GIFT 旧卡所属系统
 }
