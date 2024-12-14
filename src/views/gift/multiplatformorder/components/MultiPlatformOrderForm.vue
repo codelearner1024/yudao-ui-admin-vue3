@@ -7,7 +7,7 @@
       label-width="100px"
       v-loading="formLoading"
     >
-       <el-form-item label="订单号" prop="orderNo">
+      <el-form-item label="订单号" prop="orderNo">
         <el-input v-model="formData.orderNo" placeholder="请输入订单号" />
       </el-form-item>
       <el-form-item label="收件人姓名" prop="recipientName">
@@ -70,37 +70,37 @@
         <el-input v-model="formData.expressTrackingNumber" placeholder="请输入快递单号" />
       </el-form-item>
       <el-form-item label="销售渠道" prop="salesChannel">
-        <el-checkbox-group v-model="formData.salesChannel">
-          <el-checkbox
+        <el-select v-model="formData.salesChannel" placeholder="请选择销售渠道">
+          <el-option
             v-for="dict in getStrDictOptions(DICT_TYPE.GIFT_STORE_NAME)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
           />
-        </el-checkbox-group>
+        </el-select>
       </el-form-item>
       <el-form-item label="平台" prop="platformType">
-        <el-checkbox-group v-model="formData.platformType">
-          <el-checkbox
+        <el-select v-model="formData.platformType" placeholder="请选择平台">
+          <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.GIFT_PLATFORM_TYPE)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
           />
-        </el-checkbox-group>
+        </el-select>
       </el-form-item>
       <el-form-item label="补充平台名称" prop="platformName">
         <el-input v-model="formData.platformName" placeholder="请输入补充平台名称" />
       </el-form-item>
       <el-form-item label="店铺名称" prop="storeName">
-        <el-checkbox-group v-model="formData.storeName">
-          <el-checkbox
+        <el-select v-model="formData.storeName" placeholder="请选择店铺名称">
+          <el-option
             v-for="dict in getStrDictOptions(DICT_TYPE.GIFT_STORE_NAME)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
           />
-        </el-checkbox-group>
+        </el-select>
       </el-form-item>
       <el-form-item label="原始订单数据" prop="originConfig">
         <el-input v-model="formData.originConfig" type="textarea" placeholder="请输入原始订单数据" />
@@ -154,10 +154,10 @@ const formData = ref({
   quantity: undefined,
   totalAmount: undefined,
   expressTrackingNumber: undefined,
-  salesChannel: [],
-  platformType: [],
+  salesChannel: undefined,
+  platformType: undefined,
   platformName: undefined,
-  storeName: [],
+  storeName: undefined,
   originConfig: undefined,
   extFieldOne: undefined,
   extFieldTwo: undefined,
@@ -172,8 +172,8 @@ const formRules = reactive({
   recipientArea: [{ required: true, message: '收件区不能为空', trigger: 'blur' }],
   recipientAddress: [{ required: true, message: '收件人地址不能为空', trigger: 'blur' }],
   orderCreateTime: [{ required: true, message: '下单时间不能为空', trigger: 'blur' }],
-  platformType: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
-  storeName: [{ required: true, message: '店铺名称不能为空', trigger: 'blur' }]
+  platformType: [{ required: true, message: '平台不能为空', trigger: 'change' }],
+  storeName: [{ required: true, message: '店铺名称不能为空', trigger: 'change' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -244,10 +244,10 @@ const resetForm = () => {
     quantity: undefined,
     totalAmount: undefined,
     expressTrackingNumber: undefined,
-    salesChannel: [],
-    platformType: [],
+    salesChannel: undefined,
+    platformType: undefined,
     platformName: undefined,
-    storeName: [],
+    storeName: undefined,
     originConfig: undefined,
     extFieldOne: undefined,
     extFieldTwo: undefined,

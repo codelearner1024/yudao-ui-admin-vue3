@@ -6,8 +6,23 @@
       :model="queryParams"
       ref="queryFormRef"
       :inline="true"
-      label-width="68px"
+      label-width="98px"
     >
+      <el-form-item label="平台" prop="platformType">
+        <el-select
+          v-model="queryParams.platformType"
+          placeholder="请选择平台"
+          clearable
+          class="!w-240px"
+        >
+          <el-option
+            v-for="dict in getIntDictOptions(DICT_TYPE.GIFT_PLATFORM_TYPE)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="补充平台名称" prop="platformName">
         <el-input
           v-model="queryParams.platformName"
@@ -16,6 +31,21 @@
           @keyup.enter="handleQuery"
           class="!w-240px"
         />
+      </el-form-item>
+      <el-form-item label="店铺名称" prop="storeName">
+        <el-select
+          v-model="queryParams.storeName"
+          placeholder="请选择店铺名称"
+          clearable
+          class="!w-240px"
+        >
+          <el-option
+            v-for="dict in getStrDictOptions(DICT_TYPE.GIFT_STORE_NAME)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input
@@ -135,7 +165,7 @@
 </template>
 
 <script setup lang="ts">
-import { DICT_TYPE } from '@/utils/dict'
+import { getIntDictOptions, getStrDictOptions, DICT_TYPE } from '@/utils/dict'
 import { dateFormatter } from '@/utils/formatTime'
 import download from '@/utils/download'
 import { MultiPlatformOrderBatchApi, MultiPlatformOrderBatchVO } from '@/api/gift/multiplatformorder'
@@ -156,7 +186,7 @@ const queryParams = reactive({
   pageSize: 10,
   platformType: undefined,
   platformName: undefined,
-  storeName: [],
+  storeName: undefined,
   fileUrl: undefined,
   remark: undefined,
   createTime: []

@@ -8,27 +8,27 @@
       v-loading="formLoading"
     >
       <el-form-item label="平台" prop="platformType">
-        <el-checkbox-group v-model="formData.platformType">
-          <el-checkbox
+        <el-select v-model="formData.platformType" placeholder="请选择平台">
+          <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.GIFT_PLATFORM_TYPE)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
           />
-        </el-checkbox-group>
+        </el-select>
       </el-form-item>
       <el-form-item label="补充平台名称" prop="platformName">
         <el-input v-model="formData.platformName" placeholder="请输入补充平台名称" />
       </el-form-item>
       <el-form-item label="店铺名称" prop="storeName">
-        <el-checkbox-group v-model="formData.storeName">
-          <el-checkbox
+        <el-select v-model="formData.storeName" placeholder="请选择店铺名称">
+          <el-option
             v-for="dict in getStrDictOptions(DICT_TYPE.GIFT_STORE_NAME)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
           />
-        </el-checkbox-group>
+        </el-select>
       </el-form-item>
       <el-form-item label="文件url" prop="fileUrl">
         <UploadFile v-model="formData.fileUrl" />
@@ -59,15 +59,15 @@ const formLoading = ref(false) // 表单的加载中：1）修改时的数据加
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const formData = ref({
   id: undefined,
-  platformType: [],
+  platformType: undefined,
   platformName: undefined,
-  storeName: [],
+  storeName: undefined,
   fileUrl: undefined,
   remark: undefined
 })
 const formRules = reactive({
-  platformType: [{ required: true, message: '平台不能为空', trigger: 'blur' }],
-  storeName: [{ required: true, message: '店铺名称不能为空', trigger: 'blur' }],
+  platformType: [{ required: true, message: '平台不能为空', trigger: 'change' }],
+  storeName: [{ required: true, message: '店铺名称不能为空', trigger: 'change' }],
   fileUrl: [{ required: true, message: '文件url不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
@@ -118,9 +118,9 @@ const submitForm = async () => {
 const resetForm = () => {
   formData.value = {
     id: undefined,
-    platformType: [],
+    platformType: undefined,
     platformName: undefined,
-    storeName: [],
+    storeName: undefined,
     fileUrl: undefined,
     remark: undefined
   }
