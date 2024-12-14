@@ -247,4 +247,9 @@ export enum DICT_TYPE {
   APPOINTMENT_STATUS = 'appointment_status', // GIFT 卡券预约状态
   CARD_STATUS = 'card_status', //GIFT 卡券状态
   XY_OLD_CARD_BELONG_SYS = 'xy_old_card_belong_sys', //GIFT 旧卡所属系统
+
+  GIFT_STORE_NAME = 'gift_store_name', // 店铺名称
+
+  GIFT_PLATFORM_TYPE = 'gift_platform_type' // 平台类型
+
 }
