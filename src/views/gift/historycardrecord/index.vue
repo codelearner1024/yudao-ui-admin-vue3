@@ -6,7 +6,7 @@
       :model="queryParams"
       ref="queryFormRef"
       :inline="true"
-      label-width="68px"
+      label-width="98px"
     >
       <el-form-item label="卡号" prop="cardNo">
         <el-input
@@ -249,14 +249,14 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column label="ID" align="center" prop="id" />
-      <el-table-column label="数据源 " align="center" prop="dataSource">
+      <el-table-column label="数据源 " align="center" prop="dataSource" width="180px">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.XY_OLD_CARD_BELONG_SYS" :value="scope.row.dataSource" />
         </template>
       </el-table-column>
-      <el-table-column label="卡号" align="center" prop="cardNo" />
-      <el-table-column label="品规名称" align="center" prop="productSpecName" />
-      <el-table-column label="品规内配" align="center" prop="inSpecInternalAllocation" />
+      <el-table-column label="卡号" align="center" prop="cardNo" width="120px"/>
+      <el-table-column label="品规名称" align="center" prop="productSpecName" width="140px" />
+      <el-table-column label="品规内配" align="center" prop="inSpecInternalAllocation" width="250px" />
       <el-table-column
         label="卡券有效期"
         align="center"
@@ -284,7 +284,7 @@
           <dict-tag :type="DICT_TYPE.CARD_SALES_STATUS" :value="scope.row.cardSalesStatus" />
         </template>
       </el-table-column>
-      <el-table-column label="预约状态" align="center" prop="appointmentStatus">
+      <el-table-column label="预约状态" align="center" prop="appointmentStatus" width="100px">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.APPOINTMENT_STATUS" :value="scope.row.appointmentStatus" />
         </template>
