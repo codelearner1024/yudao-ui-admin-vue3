@@ -10,16 +10,17 @@
       <Icon icon="ep:plus" class="mr-5px" /> 新增
     </el-button>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
+      <el-table-column type="selection" :selectable="selectable" width="55" />
       <el-table-column label="多平台订单id" align="center" prop="id" />
-       <el-table-column label="订单号" align="center" prop="orderNo" />
+       <el-table-column label="订单号" align="center" prop="orderNo" width="270" fixed="left"/>
       <el-table-column label="收件人姓名" align="center" prop="recipientName" />
       <el-table-column label="收件人昵称" align="center" prop="recipientNickname" />
-      <el-table-column label="收件人电话" align="center" prop="recipientPhone" />
+      <el-table-column label="收件人电话" align="center" prop="recipientPhone" width="130"/>
       <el-table-column label="收件省" align="center" prop="recipientProvince" />
       <el-table-column label="收件市" align="center" prop="recipientCity" />
       <el-table-column label="收件区" align="center" prop="recipientArea" />
-      <el-table-column label="收件人地址" align="center" prop="recipientAddress" />
-      <el-table-column label="备注说明" align="center" prop="remark" />
+      <el-table-column label="收件人地址" align="center" prop="recipientAddress" width="450"/>
+      <el-table-column label="备注说明" align="center" prop="remark" width="270"/>
       <el-table-column label="订单金额" align="center" prop="orderAmount" />
       <el-table-column
         label="下单时间"
@@ -29,14 +30,14 @@
         width="180px"
       />
       <el-table-column label="销售渠道SKU" align="center" prop="salesChannelSku" />
-      <el-table-column label="品规" align="center" prop="productSpecification" />
+      <el-table-column label="品规" align="center" prop="productSpecification" width="230"/>
       <el-table-column label="Item_ID" align="center" prop="itemId" />
-      <el-table-column label="产品名称" align="center" prop="productName" />
+      <el-table-column label="产品名称" align="center" prop="productName" width="470"/>
       <el-table-column label="单价" align="center" prop="price" />
       <el-table-column label="数量" align="center" prop="quantity" />
       <el-table-column label="小计" align="center" prop="totalAmount" />
-      <el-table-column label="快递单号" align="center" prop="expressTrackingNumber" />
-      <el-table-column label="销售渠道" align="center" prop="salesChannel">
+      <el-table-column label="快递单号" align="center" prop="expressTrackingNumber" width="170"/>
+      <el-table-column label="销售渠道" align="center" prop="salesChannel" width="170">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.GIFT_STORE_NAME" :value="scope.row.salesChannel" />
         </template>
@@ -47,7 +48,7 @@
         </template>
       </el-table-column>
       <el-table-column label="补充平台名称" align="center" prop="platformName" />
-      <el-table-column label="店铺名称" align="center" prop="storeName">
+      <el-table-column label="店铺名称" align="center" prop="storeName" width="170">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.GIFT_STORE_NAME" :value="scope.row.storeName" />
         </template>
@@ -63,7 +64,7 @@
         :formatter="dateFormatter"
         width="180px"
       />
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" width="130">
         <template #default="scope">
           <el-button
             link

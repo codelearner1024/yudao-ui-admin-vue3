@@ -67,8 +67,7 @@ const formData = ref({
 })
 const formRules = reactive({
   platformType: [{ required: true, message: '平台不能为空', trigger: 'change' }],
-  storeName: [{ required: true, message: '店铺名称不能为空', trigger: 'change' }],
-  fileUrl: [{ required: true, message: '文件url不能为空', trigger: 'blur' }]
+  storeName: [{ required: true, message: '店铺名称不能为空', trigger: 'change' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -100,6 +99,7 @@ const submitForm = async () => {
   try {
     const data = formData.value as unknown as MultiPlatformOrderBatchVO
     if (formType.value === 'create') {
+      data.fileUrl = data.fileUrl[0]
       await MultiPlatformOrderBatchApi.createMultiPlatformOrderBatch(data)
       message.success(t('common.createSuccess'))
     } else {
