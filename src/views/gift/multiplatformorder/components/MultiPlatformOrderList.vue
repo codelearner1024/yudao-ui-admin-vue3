@@ -1,6 +1,17 @@
 <template>
   <!-- 列表 -->
   <ContentWrap>
+    <el-form-item label="商品名称" prop="productName">
+      <el-input
+        v-model="queryParams.productName"
+        placeholder="请输入商品名称"
+        clearable
+        @keyup.enter="handleQuery"
+        class="!w-240px"
+      />
+    </el-form-item>
+    <el-form-item>
+    <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
     <el-button
       type="primary"
       plain
@@ -9,6 +20,7 @@
     >
       <Icon icon="ep:plus" class="mr-5px" /> 新增
     </el-button>
+    </el-form-item>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
       <el-table-column type="selection" :selectable="selectable" width="55" />
       <el-table-column label="多平台订单id" align="center" prop="id" />
@@ -114,7 +126,8 @@ const total = ref(0) // 列表的总页数
 const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
-  orderBatchId: undefined as unknown
+  productName: undefined as unknown,
+  orderBatchId: undefined as unknown,
 })
 
 /** 监听主表的关联字段的变化，加载对应的子表数据 */
