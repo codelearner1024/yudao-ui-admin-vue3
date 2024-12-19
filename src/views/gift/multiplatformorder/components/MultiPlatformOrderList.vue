@@ -13,6 +13,14 @@
     <el-form-item>
     <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
     <el-button
+        type="primary"
+        plain
+        @click="openDealOrderListForm()"
+        v-hasPermi="['gift:multi-platform-order-batch:update']"
+      >
+        <Icon icon="ep:plus" class="mr-5px" /> 批量修改品规
+    </el-button>
+    <el-button
       type="primary"
       plain
       @click="openForm('create')"
@@ -21,7 +29,8 @@
       <Icon icon="ep:plus" class="mr-5px" /> 新增
     </el-button>
     </el-form-item>
-    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true">
+    <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true"
+              @selection-change="handleSelectionChange">
       <el-table-column type="selection" :selectable="selectable" width="55" />
       <el-table-column label="多平台订单id" align="center" prop="id" />
        <el-table-column label="订单号" align="center" prop="orderNo" width="270" fixed="left"/>
@@ -105,6 +114,8 @@
       @pagination="getList"
     />
   </ContentWrap>
+  <!-- 表单弹窗：批量修改 -->
+    <MultiPlatformDealOrderListForm ref="dealListFormRef"/>
     <!-- 表单弹窗：添加/修改 -->
     <MultiPlatformOrderForm ref="formRef" @success="getList" />
 </template>
@@ -142,6 +153,12 @@ watch(
   },
     { immediate: true, deep: true }
 )
+// 用于存储选中行的数据
+const selectedRows = ref([]);
+// 处理表格行选择变化事件，更新选中行数据
+const handleSelectionChange = (val) => {
+  selectedRows.value = val;
+};
 
 /** 查询列表 */
 const getList = async () => {
@@ -163,6 +180,7 @@ const handleQuery = () => {
 
 /** 添加/修改操作 */
 const formRef = ref()
+const dealListFormRef = ref()
 const openForm = (type: string, id?: number) => {
   if (!props.orderBatchId) {
     message.error('请选择一个多平台订单处理批次')
@@ -170,6 +188,18 @@ const openForm = (type: string, id?: number) => {
   }
   formRef.value.open(type, id, props.orderBatchId)
 }
+
+/**添加批量处理操作*/
+const openDealOrderListForm = () => {
+  if (!props.orderBatchId) {
+    message.error('请选择一个多平台订单处理批次')
+    return
+  }
+  const selectedIds = selectedRows.value.map(row => row.id);
+
+  dealListFormRef.value.open(selectedIds, props.orderBatchId)
+}
+
 
 /** 删除按钮操作 */
 const handleDelete = async (id: number) => {

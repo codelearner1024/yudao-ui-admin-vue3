@@ -10,6 +10,13 @@ export interface MultiPlatformOrderBatchVO {
   remark: string // 备注
 }
 
+// 批量更新
+export interface MultiPlatformOrderPageReqVO {
+  idList: number[] // 多平台订单文件id
+  productSpecification: string // 品规
+  orderBatchId: number // 订单批次
+}
+
 // 多平台订单处理批次 API
 export const MultiPlatformOrderBatchApi = {
   // 查询多平台订单处理批次分页
@@ -56,6 +63,11 @@ export const MultiPlatformOrderBatchApi = {
   // 修改多平台订单
   updateMultiPlatformOrder: async (data) => {
     return await request.put({ url: `/gift/multi-platform-order-batch/multi-platform-order/update`, data })
+  },
+
+  // 批量修改订单
+  updateBatchMultiPlatformOrder: async (data: MultiPlatformOrderPageReqVO) => {
+    return await request.put({ url: `/gift/multi-platform-order-batch/multi-platform-order/batchUpdate`, data })
   },
 
   // 删除多平台订单
