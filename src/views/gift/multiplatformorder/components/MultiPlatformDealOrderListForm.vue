@@ -67,7 +67,7 @@ const formRules = reactive({
 const formRef = ref() // 表单 Ref
 
 /** 打开弹窗 */
-const open = async (ids:[],orderBatchId: number) => {
+const open = async (type: string, ids:[],orderBatchId: number) => {
   dialogVisible.value = true
   dialogTitle.value = t('批量修改品规')
   formType.value = '批量修改品规'

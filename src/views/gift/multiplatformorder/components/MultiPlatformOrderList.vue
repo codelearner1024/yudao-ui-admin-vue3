@@ -15,7 +15,7 @@
     <el-button
         type="primary"
         plain
-        @click="openDealOrderListForm()"
+        @click="openDealOrderListForm('batchUpdate')"
         v-hasPermi="['gift:multi-platform-order-batch:update']"
       >
         <Icon icon="ep:plus" class="mr-5px" /> 批量修改品规
@@ -85,7 +85,7 @@
         :formatter="dateFormatter"
         width="180px"
       />
-      <el-table-column label="操作" align="center" width="130">
+      <el-table-column label="操作" align="center" width="130" fixed="right">
         <template #default="scope">
           <el-button
             link
@@ -115,7 +115,7 @@
     />
   </ContentWrap>
   <!-- 表单弹窗：批量修改 -->
-    <MultiPlatformDealOrderListForm ref="dealListFormRef"/>
+    <MultiPlatformDealOrderListForm ref="dealListFormRef" @success="getList"/>
     <!-- 表单弹窗：添加/修改 -->
     <MultiPlatformOrderForm ref="formRef" @success="getList" />
 </template>
@@ -124,6 +124,7 @@ import { DICT_TYPE } from '@/utils/dict'
 import { dateFormatter } from '@/utils/formatTime'
 import { MultiPlatformOrderBatchApi } from '@/api/gift/multiplatformorder'
 import MultiPlatformOrderForm from './MultiPlatformOrderForm.vue'
+import MultiPlatformDealOrderListForm from "./MultiPlatformDealOrderListForm.vue";
 
 const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
@@ -159,7 +160,10 @@ const selectedRows = ref([]);
 const handleSelectionChange = (val) => {
   selectedRows.value = val;
 };
-
+const selectable = () => {
+  //TODO
+  return true;
+};
 /** 查询列表 */
 const getList = async () => {
   loading.value = true
@@ -190,14 +194,14 @@ const openForm = (type: string, id?: number) => {
 }
 
 /**添加批量处理操作*/
-const openDealOrderListForm = () => {
+const openDealOrderListForm = (type: string) => {
   if (!props.orderBatchId) {
     message.error('请选择一个多平台订单处理批次')
     return
   }
   const selectedIds = selectedRows.value.map(row => row.id);
 
-  dealListFormRef.value.open(selectedIds, props.orderBatchId)
+  dealListFormRef.value.open(type,selectedIds, props.orderBatchId)
 }
 
 
