@@ -28,6 +28,15 @@
     >
       <Icon icon="ep:plus" class="mr-5px" /> 新增
     </el-button>
+    <el-button
+      type="success"
+      plain
+      @click="handleExport"
+      :loading="exportLoading"
+      v-hasPermi="['gift:multi-platform-order-batch:export']"
+    >
+      <Icon icon="ep:download" class="mr-5px" /> 导出
+    </el-button>
     </el-form-item>
     <el-table v-loading="loading" :data="list" :stripe="true" :show-overflow-tooltip="true"
               @selection-change="handleSelectionChange">
@@ -75,9 +84,9 @@
         </template>
       </el-table-column>
       <el-table-column label="原始订单数据" align="center" prop="originConfig" />
-      <el-table-column label="扩展字段1" align="center" prop="extFieldOne" />
-      <el-table-column label="扩展字段2" align="center" prop="extFieldTwo" />
-      <el-table-column label="扩展字段3" align="center" prop="extFieldThree" />
+<!--      <el-table-column label="扩展字段1" align="center" prop="extFieldOne" />-->
+<!--      <el-table-column label="扩展字段2" align="center" prop="extFieldTwo" />-->
+<!--      <el-table-column label="扩展字段3" align="center" prop="extFieldThree" />-->
       <el-table-column
         label="创建时间"
         align="center"
@@ -125,10 +134,11 @@ import { dateFormatter } from '@/utils/formatTime'
 import { MultiPlatformOrderBatchApi } from '@/api/gift/multiplatformorder'
 import MultiPlatformOrderForm from './MultiPlatformOrderForm.vue'
 import MultiPlatformDealOrderListForm from "./MultiPlatformDealOrderListForm.vue";
+import download from "@/utils/download";
 
 const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
-
+const exportLoading = ref(false) // 导出的加载中
 const props = defineProps<{
   orderBatchId?: number // 订单处理批次号（主表的关联字段）
 }>()
@@ -216,5 +226,20 @@ const handleDelete = async (id: number) => {
     // 刷新列表
     await getList()
   } catch {}
+}
+
+/** 导出按钮操作 */
+const handleExport = async () => {
+  try {
+    // 导出的二次确认
+    await message.exportConfirm('确定按照当前查询条件进行导出？','建议先查询核对要导出的数据！')
+    // 发起导出
+    exportLoading.value = true
+    const data = await MultiPlatformOrderBatchApi.exportMultiPlatformOrderBatchDetail(queryParams)
+    download.excel(data, '订单文件-礼卡系统格式.xls')
+  } catch {
+  } finally {
+    exportLoading.value = false
+  }
 }
 </script>

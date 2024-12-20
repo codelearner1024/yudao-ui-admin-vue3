@@ -78,5 +78,10 @@ export const MultiPlatformOrderBatchApi = {
   // 获得多平台订单
   getMultiPlatformOrder: async (id: number) => {
     return await request.get({ url: `/gift/multi-platform-order-batch/multi-platform-order/get?id=` + id })
-  }
+  },
+
+  // 导出多平台订单批次对应的明细 Excel
+  exportMultiPlatformOrderBatchDetail: async (params) => {
+    return await request.download({ url: `/gift/multi-platform-order-batch/multi-platform-order/export-excel`, params })
+  },
 }
