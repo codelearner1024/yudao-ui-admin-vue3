@@ -99,7 +99,9 @@ const submitForm = async () => {
   try {
     const data = formData.value as unknown as MultiPlatformOrderBatchVO
     if (formType.value === 'create') {
-      data.fileUrl = data.fileUrl[0]
+      if (data.fileUrl != undefined){
+        data.fileUrl = data.fileUrl[0]
+      }
       await MultiPlatformOrderBatchApi.createMultiPlatformOrderBatch(data)
       message.success(t('common.createSuccess'))
     } else {

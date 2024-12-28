@@ -8,7 +8,7 @@
       v-loading="formLoading"
     >
       <el-form-item label="订单号" prop="orderNo">
-        <el-input v-model="formData.orderNo" placeholder="请输入订单号" />
+        <el-input v-model="formData.orderNo" placeholder="请输入订单号" :disabled="true"/>
       </el-form-item>
       <el-form-item label="收件人姓名" prop="recipientName">
         <el-input v-model="formData.recipientName" placeholder="请输入收件人姓名" />
@@ -164,7 +164,7 @@ const formData = ref({
   extFieldThree: undefined
 })
 const formRules = reactive({
-  orderNo: [{ required: true, message: '订单号不能为空', trigger: 'blur' }],
+  // orderNo: [{ required: true, message: '订单号不能为空', trigger: 'blur' }],
   recipientName: [{ required: true, message: '收件人姓名不能为空', trigger: 'blur' }],
   recipientPhone: [{ required: true, message: '收件人电话不能为空', trigger: 'blur' }],
   // recipientProvince: [{ required: true, message: '收件省不能为空', trigger: 'blur' }],
