@@ -70,7 +70,7 @@
         <el-input v-model="formData.expressTrackingNumber" placeholder="请输入快递单号" />
       </el-form-item>
       <el-form-item label="销售渠道" prop="salesChannel">
-        <el-select v-model="formData.salesChannel" placeholder="请选择销售渠道">
+        <el-select v-model="formData.salesChannel" placeholder="请选择销售渠道" :disabled="true">
           <el-option
             v-for="dict in getStrDictOptions(DICT_TYPE.GIFT_STORE_NAME)"
             :key="dict.value"
